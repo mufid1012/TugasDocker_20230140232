@@ -32,9 +32,9 @@ public class UserController {
 
     @PostMapping("/login")
     public String handleLogin(@RequestParam String username,
-                              @RequestParam String password,
-                              HttpSession session,
-                              RedirectAttributes redirectAttributes) {
+            @RequestParam String password,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
         // Kredensial hardcoded (temporary)
         if ("admin".equals(username) && ("admin").equals(password)) {
             session.setAttribute("loggedIn", true);
@@ -75,10 +75,10 @@ public class UserController {
 
     @PostMapping("/form")
     public String handleForm(@RequestParam String nama,
-                             @RequestParam String nim,
-                             @RequestParam String jenisKelamin,
-                             HttpSession session,
-                             RedirectAttributes redirectAttributes) {
+            @RequestParam String nim,
+            @RequestParam String jenisKelamin,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
         if (session.getAttribute("loggedIn") == null) {
             return "redirect:/login";
         }

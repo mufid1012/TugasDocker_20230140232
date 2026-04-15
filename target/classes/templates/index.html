@@ -112,6 +112,19 @@
         }
         .badge-laki { background: #d0e8ff; color: #1a6bc4; }
         .badge-perempuan { background: #fce0f0; color: #c4187a; }
+        .btn-hapus {
+            padding: 4px 12px;
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-hapus:hover {
+            background: #c0392b;
+        }
     </style>
 </head>
 <body>
@@ -144,6 +157,7 @@
                             <th>Nama</th>
                             <th>NIM</th>
                             <th>Jenis Kelamin</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -155,6 +169,10 @@
                                 <span class="badge"
                                       th:classappend="${mhs.jenisKelamin == 'Laki-laki'} ? 'badge-laki' : 'badge-perempuan'"
                                       th:text="${mhs.jenisKelamin}">Laki-laki</span>
+                            </td>
+                            <td>
+                                <a th:href="@{/delete(index=${i.index})}" class="btn-hapus"
+                                   onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                             </td>
                         </tr>
                     </tbody>
