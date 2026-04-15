@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Sistem Informasi Mahasiswa</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            min-height: 100vh;
+        }
+        .navbar {
+            background: #4a90d9;
+            color: #fff;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 {
+            font-size: 18px;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 4px;
+        }
+        .navbar a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 20px;
+        }
+        .card p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        .btn-tambah {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #4a90d9;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .btn-tambah:hover {
+            background: #357abd;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th {
+            background: #4a90d9;
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+        table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            color: #555;
+        }
+        table tr:hover {
+            background: #f9f9f9;
+        }
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+        .empty p {
+            color: #999;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .badge-laki { background: #d0e8ff; color: #1a6bc4; }
+        .badge-perempuan { background: #fce0f0; color: #c4187a; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Sistem Informasi Mahasiswa</h1>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+
+    <div class="container">
+        <!-- Notifikasi sukses -->
+        <div th:if="${success}" class="success">
+            <span th:text="${success}">Berhasil!</span>
+        </div>
+
+        <!-- Tombol tambah -->
+        <div class="card">
+            <h2>Data Mahasiswa</h2>
+            <p>Daftar mahasiswa yang telah terdaftar</p>
+            <a th:href="@{/form}" class="btn-tambah">+ Tambah Mahasiswa</a>
+        </div>
+
+        <!-- Tabel data -->
+        <div class="card">
+            <!-- Jika ada data -->
+            <div th:if="${!mahasiswaList.isEmpty()}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIM</th>
+                            <th>Jenis Kelamin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="mhs, i : ${mahasiswaList}">
+                            <td th:text="${i.count}">1</td>
+                            <td th:text="${mhs.nama}">Nama</td>
+                            <td th:text="${mhs.nim}">NIM</td>
+                            <td>
+                                <span class="badge"
+                                      th:classappend="${mhs.jenisKelamin == 'Laki-laki'} ? 'badge-laki' : 'badge-perempuan'"
+                                      th:text="${mhs.jenisKelamin}">Laki-laki</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Jika kosong -->
+            <div th:if="${mahasiswaList.isEmpty()}" class="empty">
+                <p>Belum ada data mahasiswa.</p>
+                <p>Silakan klik "Tambah Mahasiswa" untuk menambah data.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
